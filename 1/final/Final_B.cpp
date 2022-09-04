@@ -1,3 +1,5 @@
+// Отчет: https://contest.yandex.ru/contest/22450/run-report/69974903/
+
 #include <iostream>
 
 int main()

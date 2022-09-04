@@ -1,3 +1,5 @@
+// Отчет: https://contest.yandex.ru/contest/22450/run-report/69973721/
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
