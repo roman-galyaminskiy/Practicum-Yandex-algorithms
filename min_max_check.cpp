@@ -1,0 +1,12 @@
+#include <limits.h>
+#include <iostream>
+using namespace std;
+int main()
+{
+  printf("%d <= int <= %d\n", INT_MIN, INT_MAX);
+  printf("%d <= unsigned int <= %ld\n", 0, UINT_MAX);
+  printf("%d <= short <= %d\n", SHRT_MIN, SHRT_MAX);
+  printf("%d <= unsigned short <= %d\n", 0, USHRT_MAX);
+  printf("%ld <= long int <= %ld\n", LONG_MIN, LONG_MAX);
+  return 0;
+}

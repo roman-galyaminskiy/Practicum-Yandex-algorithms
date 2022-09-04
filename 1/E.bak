@@ -1,0 +1,30 @@
+#include <iostream>
+// #include <stdint.h>
+
+int main()
+{
+  uint32_t n, cur_len, max_len;
+  std::cin >> n;
+
+  cur_len = 0;
+  max_len = 0;
+
+  int c;
+  c = getchar(); // LF
+  for (size_t i = 0; i < n; i++) {
+    c = getchar();
+    // std::cout << c << std::endl;
+
+    if (c == ' ') {
+      max_len = cur_len > max_len ? cur_len : max_len;
+      cur_len = 0;
+    } else {
+      cur_len++;
+    }
+  }
+  max_len = cur_len > max_len ? cur_len : max_len;
+
+  std::cout << max_len << std::endl;
+
+  return 0;
+}
