@@ -1,34 +1,38 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <limits.h>
+
+// В первой строке дана длина улицы —– n (1 ≤ n ≤ 10^6).
+// Номера домов (положительные числа) уникальны и не превосходят 10^9. 
 
 int main()
 {
-  uint32_t n;
+  int n;
   std::cin >> n;
-  std::vector<uint32_t> lots;
+  std::vector<int> lots;
 
-  uint32_t buf;
-  for (size_t i = 0; i < n; i++)
+  int buf;
+  for (int i = 0; i < n; i++)
   {
     std::cin >> buf;
     lots.push_back(buf);
   }
 
-  std::vector<uint32_t> results;
+  std::vector<int> results(n, INT_MAX);
 
-  int64_t zero_index = -1;
+  int zero_index = -1;
 
-  for (size_t i = 0; i < n; i++)
+  for (int i = 0; i < n; i++)
   {
-    if (zero_index > -1)
+    if (lots[i] == 0)
     {
-      if (lots[i] == 0)
-      {
-        results[i] = 0;
-        zero_index = i;
-      }
-      else
+      results[i] = 0;
+      zero_index = i;
+    }
+    else
+    {
+      if (zero_index > -1)
       {
         results[i] = i - zero_index;
       }
@@ -37,20 +41,24 @@ int main()
 
   zero_index = -1;
   for (int i = n - 1; i >= 0; i--)
-  {
+  {    
+    if (lots[i] == 0)
+    {
+      zero_index = i;
+    }
     if (zero_index > -1) {
-      if (lots[i] == 0)
-      {
-        zero_index = i;
-      }
       results[i] = std::min(results[i], zero_index - i);
     }
   }
   
-  for (size_t i = 0; i < n; i++) {
+  for (int i = 0; i < n; i++) {
     std::cout << results[i];
     if (i < lots.size() - 1)
     {
       std::cout << ' ';
     }
+  }
+  std::cout << '\n';
+
+  return 0;
 }
