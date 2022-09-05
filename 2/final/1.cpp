@@ -96,7 +96,7 @@ public:
 private:
     int size_ = 0;
     int max_size_;
-    int buf[5000];
+    int buf[50000];
     int head = 0;
     int tail = 0;
 };

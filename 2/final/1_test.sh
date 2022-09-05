@@ -37,16 +37,51 @@ push_back 823
   assert "$result" "-855
 0
 844"
-  result=$(echo "6
+  result=$(echo "13
 6
-push_front -201
-push_back 959
-push_back 102
-push_front 20
-pop_front
+push_front 1
+push_front 2
+push_front 3
+push_front 4
+push_front 5
+push_front 6
+pop_back
+pop_back
+pop_back
+pop_back
+pop_back
+pop_back
 pop_back
 " | ./1.out) 
   # echo "$result" 
-  assert "$result" "20
-102"
+  assert "$result" "1
+2
+3
+4
+5
+6
+error"
+result=$(echo "13
+6
+push_front 1
+pop_back
+push_front 2
+pop_back
+push_front 3
+pop_back
+push_front 4
+pop_back
+push_front 5
+pop_back
+push_front 6
+pop_back
+" | ./1.out) 
+  # echo "$result" 
+  assert "$result" "1
+2
+3
+4
+5
+6
+error"
 fi 
