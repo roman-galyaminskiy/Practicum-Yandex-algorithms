@@ -3,11 +3,11 @@
 #include <stack>
 #include <iostream>
 
-class MyQueueSized
+class MyCircularDequeue
 {
 
 public:
-    MyQueueSized(int max_size) : max_size_(max_size) {}
+    MyCircularDequeue(int max_size) : max_size_(max_size) {}
 
     void push_back(int x)
     {
@@ -107,7 +107,7 @@ int main()
     std::cin >> n;
     int max_size;
     std::cin >> max_size;
-    MyQueueSized *myqueue = new MyQueueSized(max_size);
+    MyCircularDequeue *myqueue = new MyCircularDequeue(max_size);
 
     std::string cmd;
     std::string arg;
