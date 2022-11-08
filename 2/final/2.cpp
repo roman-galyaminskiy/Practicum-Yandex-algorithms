@@ -1,7 +1,19 @@
+// Отчет https://contest.yandex.ru/contest/22781/run-report/70271952/
+
 #include <string>
 #include <stack>
 #include <iostream>
 #include <cmath>
+
+// Взято отсюда: ttps://hg.openjdk.java.net/jdk8/jdk8/jdk/file/687fd7c7986d/src/share/classes/java/lang/Math.java
+int floorDiv(int x, int y) {
+    int r = x / y;
+    if ((x ^ y) < 0 && (r * y != x)) {
+        r--;
+    }
+
+    return r;
+}
 
 int main()
 {
@@ -74,7 +86,7 @@ int main()
             operands.pop();
             int left = operands.top();
             operands.pop();
-            operands.push(std::floor(float(left) / right));
+            operands.push(floorDiv(left, right));
             i++;
         }
         else {

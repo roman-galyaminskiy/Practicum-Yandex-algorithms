@@ -1,7 +1,10 @@
+// Отчет: https://contest.yandex.ru/contest/22781/run-report/70832502/
+
 #include <cassert>
 #include <string>
 #include <stack>
 #include <iostream>
+#include <optional>
 
 class MyCircularDequeue
 {
@@ -9,94 +12,58 @@ class MyCircularDequeue
 public:
     MyCircularDequeue(int max_size) : max_size_(max_size) {}
 
-    void push_back(int x)
+    bool push_front(int x)
     {
         if (size_ == max_size_)
         {
-            std::cout << "error\n";
+            return false;
         }
-        else
-        {
-            buf[tail] = x;
-            tail = (tail + 1) % max_size_;
-            size_++;
-        }
-        return;
+        head = (head == 0 ? max_size_ : head) - 1;
+        buf[head] = x;
+        size_++;
+        return true;
     }
     
-    void push_front(int x)
-    {
-        if (size_ == max_size_)
-        {
-            std::cout << "error\n";
-        }
-        else
-        {
-            if (head == 0)
-            {
-                head = max_size_ - 1;
-            }
-            else
-            {
-                head--;
-            }
-            buf[head] = x;
-            size_++;
-        }
-        return;
-    }
-    
-    int *pop_front()
+    std::optional<int> pop_front()
     {
         if (size_ == 0)
         {
-            return nullptr;
+            return {};
         }
-
-        int *ptr = &(buf[head]);
+        int result = buf[head];
         head = (head + 1) % max_size_;
         size_--;
-        return ptr;
+        return result;
     }
-    
-    int *pop_back()
+
+    bool push_back(int x)
+    {
+        if (size_ == max_size_)
+        {
+            return false;
+        }
+        buf[tail] = x;
+        tail = (tail + 1) % max_size_;
+        size_++;
+        return true;
+    }
+        
+    std::optional<int> pop_back()
     {
         if (size_ == 0)
         {
-            return nullptr;
+            return {};
         }
-
-        if (tail == 0)
-        {
-            tail = max_size_ - 1;
-        }
-        else
-        {
-            tail--;
-        }
+        tail = (tail == 0 ? max_size_ : tail) - 1;
         size_--;
-
-        return &(buf[tail]);
-    }
-    
-    int *peek()
-    {
-        if (size_ == 0)
-        {
-            return nullptr;
-        }
-        return &(buf[head]);
-    }
-    
-    int size()
-    {
-        return size_;
+        return buf[tail];
     }
 
 private:
+    static const int max_buf_size = 50000;
+    int buf[max_buf_size];
     int size_ = 0;
     int max_size_;
-    int buf[50000];
     int head = 0;
     int tail = 0;
 };
@@ -119,37 +86,33 @@ int main()
         {
             std::cin >> arg;
             val = std::stoi(arg);
-            myqueue->push_back(val);
+            if(!myqueue->push_back(val)) {
+                std::cout << "error\n";
+            }
         }
         else if (cmd == "push_front")
         {
             std::cin >> arg;
             val = std::stoi(arg);
-            myqueue->push_front(val);
+            if(!myqueue->push_front(val)) {
+                std::cout << "error\n";
+            };
         }
         else if (cmd == "pop_front")
         {
-            int *ptr = myqueue->pop_front();
-
-            if (ptr != nullptr)
-            {
-                std::cout << *ptr << '\n';
-            }
-            else
-            {
+            std::optional<int> val = myqueue->pop_front();
+            if (val.has_value()) {
+                std::cout << val.value() << '\n';
+            } else {
                 std::cout << "error\n";
             }
         }
         else if (cmd == "pop_back")
         {
-            int *ptr = myqueue->pop_back();
-
-            if (ptr != nullptr)
-            {
-                std::cout << *ptr << '\n';
-            }
-            else
-            {
+            std::optional<int> val = myqueue->pop_back();
+            if (val.has_value()) {
+                std::cout << val.value() << '\n';
+            } else {
                 std::cout << "error\n";
             }
         }        

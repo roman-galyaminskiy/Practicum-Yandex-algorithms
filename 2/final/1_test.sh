@@ -13,6 +13,7 @@ g++ -Wall -g -std=c++17 1.cpp -o 1.out
 if [[ $? -eq 0 ]] 
 then 
   echo "Compiled"     
+
   result=$(echo "4
 4
 push_front 861
@@ -23,6 +24,7 @@ pop_back
   # echo "$result" 
   assert "$result" "861
 -819"
+
   result=$(echo "7
 10
 push_front -855
@@ -37,6 +39,7 @@ push_back 823
   assert "$result" "-855
 0
 844"
+
   result=$(echo "13
 6
 push_front 1
@@ -61,6 +64,7 @@ pop_back
 5
 6
 error"
+
 result=$(echo "13
 6
 push_front 1
