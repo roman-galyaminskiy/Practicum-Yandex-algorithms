@@ -1,9 +1,17 @@
+// Отчет: https://contest.yandex.ru/contest/23815/run-report/74064906/
+
 // #include "solution.h"
 #include <iostream>
 #include <vector>
 #include <cassert>
 #include <limits>
 
+// первые 9 попыток пытался решить задачу в два прохода: ищем минимальный 
+// элемент бинарным поиском, вызываем бинарный поиск с учетом смещения. Slack
+// навел на идею сделать в один проход
+//
+// UPD: нашел ошибку в поиске минимального элемента, не было проверки на 
+// базовый случай
 int binary_search(const std::vector<int>& vec, int l, int r, int k) {
     if (l <= r) {        
         int m = l + (r - l)/2;

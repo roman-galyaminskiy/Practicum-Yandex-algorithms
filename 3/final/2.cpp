@@ -1,9 +1,7 @@
-// #include "solution.h"
+// Отчет: https://contest.yandex.ru/contest/23815/run-report/74165628/
+
 #include <iostream>
 #include <vector>
-#include <cassert>
-#include <limits>
-#include <algorithm>
 
 class Participant {
 public:
@@ -36,9 +34,9 @@ bool operator== (const Participant& p1, const Participant& p2)
 // алфавитном (лексикографическом) порядке.
 bool operator< (const Participant& p1, const Participant& p2)
 {
-    return p1.solved < p2.solved ||
+    return !(p1 == p2) && (p1.solved < p2.solved ||
         (p1.solved == p2.solved && p1.penalty > p2.penalty) ||
-        (p1.solved == p2.solved && p1.penalty == p2.penalty && p1.name > p2.name);
+        (p1.solved == p2.solved && p1.penalty == p2.penalty && p1.name > p2.name));
 }
 
 std::ostream& operator<<(std::ostream& os, const Participant& p)
@@ -48,6 +46,9 @@ std::ostream& operator<<(std::ostream& os, const Participant& p)
 }
 
 size_t partition(std::vector<Participant>& vec, int l, int r) {
+    // пофиксил выбор произвольного pivot-а
+    // добавил файл со сравнением работы и подсчетом swap-ов
+    srand((unsigned)time(NULL));
     size_t pivot = rand() % (r - l + 1) + l;
     std::swap(vec[pivot], vec[r]);
 
